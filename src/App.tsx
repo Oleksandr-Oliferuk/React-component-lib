@@ -8,6 +8,7 @@ function App() {
 
   return (
     <>
+      <div className="bg-red-500 text-white p-4 rounded">Tailwind працює 🎉</div>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
