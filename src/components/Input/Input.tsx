@@ -1,30 +1,22 @@
 import { Eye, EyeOff, X } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 
 type Props = {
   label: string;
   placeholder: string;
-  value: string | number;
   type: 'text' | 'password';
-  onChange: (value: string) => void;
   clearable?: boolean;
 };
 
-export const Input: React.FC<Props> = ({
-  label,
-  placeholder,
-  value,
-  type,
-  onChange,
-  clearable = false,
-}) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+export const Input: React.FC<Props> = ({ label, placeholder, type, clearable = false }) => {
+  const [valueInput, setValueInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const inputType = type === 'password' && showPassword ? 'text' : type;
 
   const handleClear = () => {
-    onChange('');
+    setValueInput('');
   };
 
   return (
@@ -34,13 +26,13 @@ export const Input: React.FC<Props> = ({
       <div className="relative">
         <input
           type={inputType}
-          value={value}
-          onChange={e => onChange(e.target.value)}
+          value={valueInput}
+          onChange={e => setValueInput(e.target.value)}
           placeholder={placeholder}
           className="w-full border border-gray-300 rounded px-3 py-2 pr-16 focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder-gray-400"
         />
 
-        {value && clearable && (
+        {valueInput && clearable && (
           <div
             role="button"
             aria-label="Toggle password visibility"
@@ -69,8 +61,8 @@ export const Input: React.FC<Props> = ({
               'focus:outline-none',
               'focus:ring-0',
               {
-                'right-10': value && clearable,
-                'right-2': !(value && clearable),
+                'right-10': valueInput && clearable,
+                'right-2': !(valueInput && clearable),
               }
             )}
           >
